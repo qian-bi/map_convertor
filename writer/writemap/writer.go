@@ -2,9 +2,9 @@ package writemap
 
 import (
 	"bytes"
-	"convertor/stiftomap"
-	"datastruct"
 	"fmt"
+	"mapconvertor/convertor/stiftomap"
+	"mapconvertor/datastruct"
 )
 
 // WriteMap is for writing the MAP.

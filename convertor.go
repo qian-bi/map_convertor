@@ -2,21 +2,21 @@
 package main
 
 import (
-	"datastruct"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
+	"mapconvertor/datastruct"
+	"mapconvertor/reader"
+	"mapconvertor/reader/parsestif"
+	"mapconvertor/sendmail"
+	"mapconvertor/writer/writemap"
+	"mapconvertor/zipcompress"
 	"os"
 	"path/filepath"
-	"reader"
-	"reader/parsestif"
-	"sendmail"
 	"strconv"
 	"strings"
 	"time"
-	"writer/writemap"
-	"zipcompress"
 )
 
 func getConf(conf *datastruct.Conf) (*os.File, *log.Logger, *os.File, *log.Logger) {

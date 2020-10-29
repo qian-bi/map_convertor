@@ -3,9 +3,9 @@ package zipcompress
 import (
 	"archive/zip"
 	"bytes"
-	"datastruct"
 	"io"
 	"io/ioutil"
+	"mapconvertor/datastruct"
 	"os"
 	"path/filepath"
 )

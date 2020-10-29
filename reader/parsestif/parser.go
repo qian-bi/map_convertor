@@ -1,7 +1,7 @@
 package parsestif
 
 import (
-	"datastruct"
+	"mapconvertor/datastruct"
 	"strconv"
 	"strings"
 )
