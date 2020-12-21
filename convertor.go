@@ -31,11 +31,11 @@ func getConf(conf *datastruct.Conf) (*os.File, *log.Logger, *os.File, *log.Logge
 		errLogger.Fatalln(err.Error())
 	}
 	errLogger = log.New(errLogFile, "ERROR ", log.LstdFlags|log.Lshortfile)
-	logFile, err := os.OpenFile(filepath.Join(rootPath, name), os.O_APPEND|os.O_CREATE, 0666)
+	infoLogFile, err := os.OpenFile(filepath.Join(rootPath, name), os.O_APPEND|os.O_CREATE, 0666)
 	if err != nil {
 		errLogger.Fatalln(err.Error())
 	}
-	infoLogger = log.New(logFile, "INFO ", log.LstdFlags|log.Lshortfile)
+	infoLogger = log.New(infoLogFile, "INFO ", log.LstdFlags|log.Lshortfile)
 
 	configName := filepath.Join(rootPath, "config.json")
 	if _, err = os.Stat(configName); os.IsNotExist(err) {
@@ -66,7 +66,7 @@ func getConf(conf *datastruct.Conf) (*os.File, *log.Logger, *os.File, *log.Logge
 		}
 	}
 
-	return logFile, infoLogger, errLogFile, errLogger
+	return infoLogFile, infoLogger, errLogFile, errLogger
 }
 
 func main() {
@@ -74,7 +74,7 @@ func main() {
 	var buf strings.Builder
 
 	conf := datastruct.Conf{}
-	logFile, infoLogger, errLogFile, errLogger := getConf(&conf)
+	infoLogFile, infoLogger, errLogFile, errLogger := getConf(&conf)
 	defer func() {
 		if buf.String() != "" {
 			err := sendmail.SendMail(conf.Host, conf.MailFrom, conf.MailTo, conf.MailType, conf.Subject, buf.String())
@@ -83,7 +83,7 @@ func main() {
 			}
 		}
 	}()
-	defer logFile.Close()
+	defer infoLogFile.Close()
 	defer errLogFile.Close()
 
 	rootDir, err := ioutil.ReadDir(conf.InputPath)
